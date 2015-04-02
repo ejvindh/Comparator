@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<POSITIONS>
+  <POSITION>
+    <ID>ios</ID>
+    <NAME>iOS</NAME>
+  </POSITION>
+  <POSITION>
+    <ID>MO</ID>
+    <NAME>MacOs</NAME>
+  </POSITION>
+  <POSITION>
+    <ID>win</ID>
+    <NAME>Windows</NAME>
+  </POSITION>
+  <POSITION>
+    <ID>lin</ID>
+    <NAME>Linux</NAME>
+  </POSITION>
+  <POSITION>
+    <ID>and</ID>
+    <NAME>Android</NAME>
+  </POSITION>
+</POSITIONS>
+

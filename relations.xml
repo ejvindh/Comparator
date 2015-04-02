@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- ios, MO, win, lin, and -->
+
+<COMPARISONS>
+	<COMPARISON>
+		<ID>ios</ID>
+		<ID>MO</ID>
+		<SIMILARITY>Only supposed to run on devices created by Apple</SIMILARITY>
+		<DIFFERENCE>iOS runs on mobile devices; MacOs runs on laptops and desktops</DIFFERENCE>
+	</COMPARISON>
+	<COMPARISON>
+		<ID>ios</ID>
+		<ID>and</ID>
+		<SIMILARITY>Mainly for mobile devices</SIMILARITY>
+		<DIFFERENCE>iOS mainly runs on devices created by Apple, Android is not targeting specific hardware</DIFFERENCE>
+		<DIFFERENCE>Android is opensource, iOS is closed source</DIFFERENCE>
+	</COMPARISON>
+	<COMPARISON>
+		<ID>win</ID>
+		<ID>MO</ID>
+		<ID>lin</ID>
+		<SIMILARITY>Mainly for desktop and laptop computers</SIMILARITY>
+	</COMPARISON>
+	<COMPARISON>
+		<ID>and</ID>
+		<ID>lin</ID>
+		<SIMILARITY>Open source</SIMILARITY>
+		<SIMILARITY>Based on the same kernel</SIMILARITY>
+		<DIFFERENCE>Android is for mobile devices, Linux is mainly used on servers, desktops, and laptops</DIFFERENCE>
+	</COMPARISON>
+	<COMPARISON>
+		<ID>win</ID>
+		<ID>lin</ID>
+		<COMMENT>Windows and Ubuntu-linux have versions that are for mobile devices.</COMMENT>
+	</COMPARISON>
+</COMPARISONS>
