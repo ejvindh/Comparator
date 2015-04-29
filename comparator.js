@@ -1,5 +1,5 @@
 /*!
- * Comparator.js v0.1
+ * Comparator.js v0.2
  *
  * Copyright (c) 2015, Ejvind Hansen
  * http://ejvindh.net/
@@ -8,7 +8,7 @@
  *
  * All rights reserved.
  *
- * Date: Sat Mar 27 09:00:00 2015
+ * Date: Wed Apr 29 21:00:00 2015
  *
  ***/
 
@@ -40,7 +40,7 @@ function init() {
     setSizes();
   }
   window.addEventListener("resize", onresize);
-  
+
   canvas.addEventListener('click', function(event) {
       //Determine what has been clicked -- nodes or connector-selector
       var mousePos = getMousePos(canvas, event);
@@ -122,27 +122,36 @@ function initializeTextContainer() {
     currentVite = "<small>" + messages.clickNode + "</small>";
   }
   document.getElementById("vitesContainer").innerHTML = currentVite;
-  document.getElementById("linksContainer").innerHTML = "<h1>" + messages.links + "</h1>";
-  document.getElementById("diffContainer").innerHTML = "<h1>" + messages.differences + "</h1>";
-  document.getElementById("similaContainer").innerHTML = "<h1>" + messages.similarities + "</h1>";
-  document.getElementById("commentContainer").innerHTML = "<h1>" + messages.comments + "</h1>";
+  document.getElementById("linksContainer").innerHTML = "";
+  document.getElementById("diffContainer").innerHTML = "";
+  document.getElementById("similaContainer").innerHTML = "";
+  document.getElementById("commentContainer").innerHTML = "";
 }
 
 function showComparisons(connectorHit) {
   // ConnectorButton has been clicked -- fill content into the textcontainer
   var vitesText = vites[centerIndex].name + " " + messages.versus + " " + vites[connectorHit].name;
   var linksText = "<h1>" + messages.links + "</h1>";
+    var linksTextLength = linksText.length;
   var diffText = "<h1>" + messages.differences + "</h1>";
+    var diffTextLength = diffText.length;
   var simText = "<h1>" + messages.similarities + "</h1>";
+    var simTextLength = simText.length;
   var commentText = "<h1>" + messages.comments + "</h1>";
+    var commentTextLength = commentText.length;
   var connectorHitId = vites[connectorHit].id;
   for (var i=0; i<currentComparisons.length; i++) {
     if ((currentComparisons[i].ids.indexOf(connectorHitId) > -1)) {
+      linksText = linksText + currentComparisons[i].links;
       diffText = diffText + currentComparisons[i].differences;
       simText = simText + currentComparisons[i].similarities;
       commentText = commentText + currentComparisons[i].comments;
     }
   }
+  if (linksTextLength == linksText.length) linksText = "";
+  if (diffTextLength == diffText.length) diffText = "";
+  if (simTextLength == simText.length) simText = "";
+  if (commentTextLength == commentText.length) commentText = "";
   document.getElementById("vitesContainer").innerHTML = vitesText;
   document.getElementById("linksContainer").innerHTML = linksText;
   document.getElementById("diffContainer").innerHTML = diffText;
@@ -287,11 +296,21 @@ function initializeComparisons() {
   var x=xmlDoc.getElementsByTagName("COMPARISON");
   for (i=0;i<x.length;i++) { 
     var ids = "";
+    var links = "";
     var similarities = "";
     var differences = "";
     var comments = "";
     for (var j=0; j<x[i].getElementsByTagName("ID").length;j++) {
       ids = ids + "<p>" + x[i].getElementsByTagName("ID")[j].childNodes[0].nodeValue + "</p>";
+    }
+    for (var j=0; j<x[i].getElementsByTagName("AUDIO").length;j++) {
+      links = links + "<p><audio id='SoundaudioButton" + j + "' src='" 
+		    + x[i].getElementsByTagName("AUDIO")[j].childNodes[0].nodeValue 
+		    + "'></audio><button id='audioButton" + j + "' onclick='playSound(this.id)'>"
+		    + messages.audioButtonBegin + "</button></p>";
+    }
+    for (var j=0; j<x[i].getElementsByTagName("HTML").length;j++) {
+      links = links + "<p><a href='" + x[i].getElementsByTagName("HTML")[j].childNodes[0].nodeValue + "' target='_blank'> <strong>" + messages.externalLinkString + "</strong></a></p>";
     }
     for (var j=0; j<x[i].getElementsByTagName("SIMILARITY").length;j++) {
       similarities = similarities + "<p>" + x[i].getElementsByTagName("SIMILARITY")[j].childNodes[0].nodeValue + "</p>";
@@ -302,8 +321,22 @@ function initializeComparisons() {
     for (var j=0; j<x[i].getElementsByTagName("COMMENT").length;j++) {
       comments = comments + "<p>" + x[i].getElementsByTagName("COMMENT")[j].childNodes[0].nodeValue + "</p>";
     }
-    comparisons[i] = {ids:ids, similarities:similarities, differences:differences, comments:comments};
+    comparisons[i] = {ids:ids, links:links, similarities:similarities, differences:differences, comments:comments};
   }
+}
+
+function playSound( buttonId ) {
+  var audio = document.getElementById("Sound" + buttonId);
+  if (!audio.paused) {
+    audio.pause();
+    document.getElementById(buttonId).textContent = messages.audioButtonBegin;
+  } else {
+    audio.play();
+    document.getElementById(buttonId).textContent = messages.audioButtonStop;
+  }
+  audio.addEventListener("ended", function () {
+      document.getElementById(buttonId).textContent = messages.audioButtonBegin;
+    }, false);
 }
 
 function extractComparisons(nodeHit) {

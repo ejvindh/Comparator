@@ -11,3 +11,6 @@ http://test.ejvindh.net/Comparator/
 
 v0.1: March/April 2015
 - First public release
+
+v0.2: April 2015
+- Can now handle external links and audio-files in the text-section

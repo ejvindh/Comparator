@@ -5,12 +5,15 @@
 	<COMPARISON>
 		<ID>ios</ID>
 		<ID>MO</ID>
+		<AUDIO>media/io_mo.mp3</AUDIO>
+		<HTML>http://www.infoworld.com/article/2612286/ios/9-dumb-differences-between-ios-and-os-x-apple-should-fix.html</HTML>
 		<SIMILARITY>Only supposed to run on devices created by Apple</SIMILARITY>
 		<DIFFERENCE>iOS runs on mobile devices; MacOs runs on laptops and desktops</DIFFERENCE>
 	</COMPARISON>
 	<COMPARISON>
 		<ID>ios</ID>
 		<ID>and</ID>
+		<HTML>http://www.diffen.com/difference/Android_vs_iOS</HTML>
 		<SIMILARITY>Mainly for mobile devices</SIMILARITY>
 		<DIFFERENCE>iOS mainly runs on devices created by Apple, Android is not targeting specific hardware</DIFFERENCE>
 		<DIFFERENCE>Android is opensource, iOS is closed source</DIFFERENCE>
@@ -20,6 +23,8 @@
 		<ID>MO</ID>
 		<ID>lin</ID>
 		<SIMILARITY>Mainly for desktop and laptop computers</SIMILARITY>
+		<AUDIO>media/lydeks_lang.mp3</AUDIO>
+		<AUDIO>media/lydeks.mp3</AUDIO>
 	</COMPARISON>
 	<COMPARISON>
 		<ID>and</ID>

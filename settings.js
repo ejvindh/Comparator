@@ -15,24 +15,30 @@
 // Comment/uncomment the desired localisation of the "messages" variable
 /*UK - English*/
 var messages = {
-    links: "Links:",
+    links: "Comparisons:",
     differences: "Differences:",
     similarities: "Similarities:",
     comments: "Comments:",
     clickConnector: "(click the connector-button to open comparisons)",
     clickNode: "(click the nodes to see comparison options)",
-    versus: "versus"
+    versus: "versus", 
+    audioButtonBegin: "Audiotrack", 
+    audioButtonStop: "Stop", 
+    externalLinkString: "Ext Link"
 };
 
 /*DK - Danish
 var messages = {
-    links: "Links:",
+    links: "Sammenligninger:",
     differences: "Forskelle:",
     similarities: "Ligheder:",
     comments: "Kommentarer:",
     clickConnector: "(klik på forbindelsesknap viser sammenligninger)",
     clickNode: "(klik på position for at se sammenligningsmuligheder)",
     versus: "vs."
+    audioButtonBegin: "Lydspor", 
+    audioButtonStop: "Stop",
+    externalLinkString: "Ekst Link"
 };*/
 
 var layout = {
