@@ -35,7 +35,7 @@ var messages = {
     comments: "Kommentarer:",
     clickConnector: "(klik på forbindelsesknap viser sammenligninger)",
     clickNode: "(klik på position for at se sammenligningsmuligheder)",
-    versus: "vs."
+    versus: "vs.",
     audioButtonBegin: "Lydspor", 
     audioButtonStop: "Stop",
     externalLinkString: "Ekst Link"

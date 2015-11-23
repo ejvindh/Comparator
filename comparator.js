@@ -184,11 +184,12 @@ function calculateNewXY() {
 
 function animate() {
   // Upon each screenframe: Are any animations called for? If yes, go to draw()
-  reqAnimFrame = window.mozRequestAnimationFrame    ||
+  /*reqAnimFrame = window.mozRequestAnimationFrame    ||
         window.webkitRequestAnimationFrame ||
         window.msRequestAnimationFrame     ||
         window.oRequestAnimationFrame;
-  reqAnimFrame(animate);
+  reqAnimFrame(animate);*/
+  window.requestAnimationFrame(animate);
   var changeOffset = false;
   for (var i = 0; i < numberOfVites; i++) {
     var trivialityLimit = 5; // stop animation if nodes are "close enough" to their "right" x,y
