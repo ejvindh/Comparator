@@ -10,7 +10,11 @@ http://test.ejvindh.net/Comparator/
 ### Development:
 
 v0.1: March/April 2015
-- First public release
+- First public release.
 
 v0.2: April 2015
-- Can now handle external links and audio-files in the text-section
+- Can now handle external links and audio-files in comparissons.
+
+v0.3: May 2016
+- Added posibility of defining names of external links in comparissons.
+- Can now handle external links for singular nodes (with/-out defined linknames).

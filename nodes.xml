@@ -3,6 +3,10 @@
   <POSITION>
     <ID>ios</ID>
     <NAME>iOS</NAME>
+    <HTML>http://www.apple.com/ios/</HTML>
+    <HTML>https://en.wikipedia.org/wiki/IOS
+      <LINKNAME>Wikipedia</LINKNAME>
+    </HTML>
   </POSITION>
   <POSITION>
     <ID>MO</ID>
@@ -19,6 +23,9 @@
   <POSITION>
     <ID>and</ID>
     <NAME>Android</NAME>
+    <HTML>https://en.wikipedia.org/wiki/Android_(operating_system)
+      <LINKNAME>Wikipedia</LINKNAME>
+    </HTML>
   </POSITION>
 </POSITIONS>
 

@@ -16,6 +16,7 @@ var canvas, numberOfVites, animationSpeed;
 var vites  = new Array();
 var comparisons = new Array();
 var currentComparisons = new Array();
+var oldconnectorHit = -1;
 var radiusNodeCircleW, radiusNodeCircleH, connectorButtonRadius;
 var centerIndex, centerViewX, centerViewY, radiusViewW, radiusViewH;
 var clickSizeX, clickSizeY;
@@ -32,7 +33,6 @@ function init() {
   animate();
   txtProperties = document.querySelector(".textContainer");
   txtProperties.style.fontFamily = layout.comparisonTextFont;
-//  txtProperties.style.fontSize = layout.comparisonTextSize;
   bodyProperties = document.querySelector("body");
   bodyProperties.style.fontSize = layout.comparisonTextSize;
 
@@ -117,7 +117,7 @@ function initializeTextContainer() {
   // Reset content of the textcontainer (upon firstRun and when clicking af new node into the center)
   var currentVite = "";
   if (centerIndex != -1) {
-    currentVite = vites[centerIndex].name + " <small>" + messages.clickConnector + "</small>";
+    currentVite = vites[centerIndex].name + " <small>" + messages.clickConnector + "<br>" + vites[centerIndex].links + "</small>";
   } else {
     currentVite = "<small>" + messages.clickNode + "</small>";
   }
@@ -126,37 +126,39 @@ function initializeTextContainer() {
   document.getElementById("diffContainer").innerHTML = "";
   document.getElementById("similaContainer").innerHTML = "";
   document.getElementById("commentContainer").innerHTML = "";
+  oldconnectorHit = -1;
 }
 
 function showComparisons(connectorHit) {
   // ConnectorButton has been clicked -- fill content into the textcontainer
-  var vitesText = vites[centerIndex].name + " " + messages.versus + " " + vites[connectorHit].name;
-  var linksText = "<h1>" + messages.links + "</h1>";
-    var linksTextLength = linksText.length;
-  var diffText = "<h1>" + messages.differences + "</h1>";
-    var diffTextLength = diffText.length;
-  var simText = "<h1>" + messages.similarities + "</h1>";
-    var simTextLength = simText.length;
-  var commentText = "<h1>" + messages.comments + "</h1>";
-    var commentTextLength = commentText.length;
-  var connectorHitId = vites[connectorHit].id;
-  for (var i=0; i<currentComparisons.length; i++) {
-    if ((currentComparisons[i].ids.indexOf(connectorHitId) > -1)) {
-      linksText = linksText + currentComparisons[i].links;
-      diffText = diffText + currentComparisons[i].differences;
-      simText = simText + currentComparisons[i].similarities;
-      commentText = commentText + currentComparisons[i].comments;
+  if (oldconnectorHit != connectorHit) {
+    var vitesText = vites[centerIndex].name + " " + messages.versus + " " + vites[connectorHit].name;
+    var linksText = "<h1>" + messages.links + "</h1>";
+      var linksTextLength = linksText.length;
+    var diffText = "<h1>" + messages.differences + "</h1>";
+      var diffTextLength = diffText.length;
+    var simText = "<h1>" + messages.similarities + "</h1>";
+      var simTextLength = simText.length;
+    var commentText = "<h1>" + messages.comments + "</h1>";
+      var commentTextLength = commentText.length;
+    var connectorHitId = vites[connectorHit].id;
+    for (var i=0; i<currentComparisons.length; i++) {
+      if ((currentComparisons[i].ids.indexOf(connectorHitId) > -1)) {
+        linksText = linksText + currentComparisons[i].links;
+        diffText = diffText + currentComparisons[i].differences;
+        simText = simText + currentComparisons[i].similarities;
+        commentText = commentText + currentComparisons[i].comments;
+      }
     }
+    document.getElementById("vitesContainer").innerHTML = vitesText;
+    document.getElementById("linksContainer").innerHTML = linksText;
+    document.getElementById("diffContainer").innerHTML = diffText;
+    document.getElementById("similaContainer").innerHTML = simText;
+    document.getElementById("commentContainer").innerHTML = commentText;
+    oldconnectorHit = connectorHit;
+  } else {
+    initializeTextContainer()
   }
-  if (linksTextLength == linksText.length) linksText = "";
-  if (diffTextLength == diffText.length) diffText = "";
-  if (simTextLength == simText.length) simText = "";
-  if (commentTextLength == commentText.length) commentText = "";
-  document.getElementById("vitesContainer").innerHTML = vitesText;
-  document.getElementById("linksContainer").innerHTML = linksText;
-  document.getElementById("diffContainer").innerHTML = diffText;
-  document.getElementById("similaContainer").innerHTML = simText;
-  document.getElementById("commentContainer").innerHTML = commentText;
 }
 
 function calculateNewXY() {
@@ -271,13 +273,24 @@ function initializeVites() {
   for (i=0;i<numberOfVites;i++) { 
     var posId = x[i].getElementsByTagName("ID")[0].childNodes[0].nodeValue;
     var posName = x[i].getElementsByTagName("NAME")[0].childNodes[0].nodeValue;
+    var posLinks = "";
+    for (var j=0; j<x[i].getElementsByTagName("HTML").length;j++) {
+      var linkName = "";
+      if( x[i].getElementsByTagName("LINKNAME")[j] != null ) {
+        linkName = x[i].getElementsByTagName("LINKNAME")[j].childNodes[0].nodeValue;
+      } else {
+        linkName = messages.externalLinkString
+      }
+      var posLinks = posLinks + "<p><a href='" + x[i].getElementsByTagName("HTML")[j].childNodes[0].nodeValue + "' target='_blank'><strong>" + linkName + "</strong></a></p>";
+    }
     var posX = centerViewX + (radiusViewW * Math.cos(2*Math.PI * i/numberOfVites));
     var posY = centerViewY + (radiusViewH * Math.sin(2*Math.PI * i/numberOfVites));
     var connectorMiddleX = posX + ((centerViewX - posX) / 2);
     var connectorMiddleY = posY + ((centerViewY - posY) / 2);
-        vites[i] = {	
+    vites[i] = {	
           id:posId, 
-          name:posName, 
+          name:posName,
+          links:posLinks, 
           curX:posX, 
           curY:posY,
           connectorMiddleX: connectorMiddleX, 
@@ -285,12 +298,12 @@ function initializeVites() {
           rightX:posX, 
           rightY:posY, 
           comparison:0
-      };
+    };
   }
 }
 
 function initializeComparisons() {
-  //Get content of nodes.xml into the comparisons[] array
+  //Get content of relations.xml into the comparisons[] array
   xmlhttp.open("GET","relations.xml",false);
   xmlhttp.send();
   xmlDoc=xmlhttp.responseXML;
@@ -311,7 +324,13 @@ function initializeComparisons() {
 		    + messages.audioButtonBegin + "</button></p>";
     }
     for (var j=0; j<x[i].getElementsByTagName("HTML").length;j++) {
-      links = links + "<p><a href='" + x[i].getElementsByTagName("HTML")[j].childNodes[0].nodeValue + "' target='_blank'> <strong>" + messages.externalLinkString + "</strong></a></p>";
+      var linkName = "";
+      if( x[i].getElementsByTagName("NAME")[j] != null ) {
+        linkName = x[i].getElementsByTagName("NAME")[j].childNodes[0].nodeValue;
+      } else {
+        linkName = messages.externalLinkString
+      }
+      links = links + "<p><a href='" + x[i].getElementsByTagName("HTML")[j].childNodes[0].nodeValue + "' target='_blank'> <strong>" + linkName + "</strong></a></p>";
     }
     for (var j=0; j<x[i].getElementsByTagName("SIMILARITY").length;j++) {
       similarities = similarities + "<p>" + x[i].getElementsByTagName("SIMILARITY")[j].childNodes[0].nodeValue + "</p>";

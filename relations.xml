@@ -6,7 +6,9 @@
 		<ID>ios</ID>
 		<ID>MO</ID>
 		<AUDIO>media/io_mo.mp3</AUDIO>
-		<HTML>http://www.infoworld.com/article/2612286/ios/9-dumb-differences-between-ios-and-os-x-apple-should-fix.html</HTML>
+		<HTML>http://www.infoworld.com/article/2612286/ios/9-dumb-differences-between-ios-and-os-x-apple-should-fix.html
+      <NAME>Dumb differences</NAME>
+    </HTML>
 		<SIMILARITY>Only supposed to run on devices created by Apple</SIMILARITY>
 		<DIFFERENCE>iOS runs on mobile devices; MacOs runs on laptops and desktops</DIFFERENCE>
 	</COMPARISON>
