@@ -116,16 +116,22 @@ function findClickedConnectors(mousePos) {
 function initializeTextContainer() {
   // Reset content of the textcontainer (upon firstRun and when clicking af new node into the center)
   var currentVite = "";
+  var currentLinks = "";
+  var currentDiff = "";
+  var currentSimil = "";
+  var currentComments = "";
   if (centerIndex != -1) {
-    currentVite = vites[centerIndex].name + " <small>" + messages.clickConnector + "<br>" + vites[centerIndex].links + "</small>";
+    currentVite = vites[centerIndex].name + " <small>" + messages.clickConnector + "</small>";
+    currentLinks = vites[centerIndex].links;
+    currentComments = vites[centerIndex].comments;
   } else {
     currentVite = "<small>" + messages.clickNode + "</small>";
   }
   document.getElementById("vitesContainer").innerHTML = currentVite;
-  document.getElementById("linksContainer").innerHTML = "";
-  document.getElementById("diffContainer").innerHTML = "";
-  document.getElementById("similaContainer").innerHTML = "";
-  document.getElementById("commentContainer").innerHTML = "";
+  document.getElementById("linksContainer").innerHTML = currentLinks;
+  document.getElementById("diffContainer").innerHTML = currentDiff;
+  document.getElementById("similaContainer").innerHTML = currentSimil;
+  document.getElementById("commentContainer").innerHTML = currentComments;
   oldconnectorHit = -1;
 }
 
@@ -273,6 +279,10 @@ function initializeVites() {
   for (i=0;i<numberOfVites;i++) { 
     var posId = x[i].getElementsByTagName("ID")[0].childNodes[0].nodeValue;
     var posName = x[i].getElementsByTagName("NAME")[0].childNodes[0].nodeValue;
+    var posComments = "";
+    for (var j=0; j<x[i].getElementsByTagName("COMMENT").length;j++) {
+      posComments = posComments + "<p>" + x[i].getElementsByTagName("COMMENT")[j].childNodes[0].nodeValue + "</p>";
+    }
     var posLinks = "";
     for (var j=0; j<x[i].getElementsByTagName("HTML").length;j++) {
       var linkName = "";
@@ -290,6 +300,7 @@ function initializeVites() {
     vites[i] = {	
           id:posId, 
           name:posName,
+          comments:posComments,
           links:posLinks, 
           curX:posX, 
           curY:posY,

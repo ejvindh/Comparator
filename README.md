@@ -18,3 +18,6 @@ v0.2: April 2015
 v0.3: May 2016
 - Added posibility of defining names of external links in comparissons.
 - Can now handle external links for singular nodes (with/-out defined linknames).
+
+v0.4: May 2016
+- Add comments in the singular-nodes view.

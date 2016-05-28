@@ -3,10 +3,12 @@
   <POSITION>
     <ID>ios</ID>
     <NAME>iOS</NAME>
+    <COMMENT>Apple's OS for mobile devices.</COMMENT>
     <HTML>http://www.apple.com/ios/</HTML>
     <HTML>https://en.wikipedia.org/wiki/IOS
       <LINKNAME>Wikipedia</LINKNAME>
     </HTML>
+    <COMMENT>Can be found on iPod, iPhone, iPad.</COMMENT>
   </POSITION>
   <POSITION>
     <ID>MO</ID>
