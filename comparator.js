@@ -149,7 +149,7 @@ function showComparisons(connectorHit) {
       var commentTextLength = commentText.length;
     var connectorHitId = vites[connectorHit].id;
     for (var i=0; i<currentComparisons.length; i++) {
-      if ((currentComparisons[i].ids.indexOf(connectorHitId) > -1)) {
+      if ((currentComparisons[i].ids.indexOf("<p>"+connectorHitId+"</p>") > -1)) {
         linksText = linksText + currentComparisons[i].links;
         diffText = diffText + currentComparisons[i].differences;
         simText = simText + currentComparisons[i].similarities;
@@ -289,7 +289,7 @@ function initializeVites() {
       if( x[i].getElementsByTagName("LINKNAME")[j] != null ) {
         linkName = x[i].getElementsByTagName("LINKNAME")[j].childNodes[0].nodeValue;
       } else {
-        linkName = messages.externalLinkString
+        linkName = messages.externalLinkString;
       }
       var posLinks = posLinks + "<p><a href='" + x[i].getElementsByTagName("HTML")[j].childNodes[0].nodeValue + "' target='_blank'><strong>" + linkName + "</strong></a></p>";
     }
@@ -339,7 +339,7 @@ function initializeComparisons() {
       if( x[i].getElementsByTagName("NAME")[j] != null ) {
         linkName = x[i].getElementsByTagName("NAME")[j].childNodes[0].nodeValue;
       } else {
-        linkName = messages.externalLinkString
+        linkName = messages.externalLinkString;
       }
       links = links + "<p><a href='" + x[i].getElementsByTagName("HTML")[j].childNodes[0].nodeValue + "' target='_blank'> <strong>" + linkName + "</strong></a></p>";
     }
@@ -383,9 +383,9 @@ function extractComparisons(nodeHit) {
       vites[i].comparison = 0;
     }
     for (var i=0; i< comparisons.length; i++) {
-      if (comparisons[i].ids.indexOf(vites[nodeHit].id) > -1) {
+      if (comparisons[i].ids.indexOf("<p>"+vites[nodeHit].id+"</p>") > -1) {
         for (var j=0; j<numberOfVites; j++) {
-          if (comparisons[i].ids.indexOf(vites[j].id) > -1) {
+          if (comparisons[i].ids.indexOf("<p>"+vites[j].id+"</p>") > -1) {
             vites[j].comparison++;
           }
         }
