@@ -9,6 +9,9 @@ http://test.ejvindh.net/Comparator/
 
 ### Development:
 
+v0.41: June 2016
+- Couple of bugfixes; streamlining with future php-version.
+
 v0.4: May 2016
 - Add comments in the singular-nodes view.
 
